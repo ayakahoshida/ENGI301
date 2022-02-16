@@ -65,6 +65,9 @@ operators = {
     "-" : operator.sub,
     "*" : operator.mul,
     "/" : operator.truediv,
+    "RS" : >>,
+    "LS": <<, 
+    
     }
 # ------------------------------------------------------------------------
 # Functions
@@ -73,7 +76,7 @@ def get_user_input():
     try:
         in1 = float(input("Enter first number: "))
         in2 = float(input("Enter second number: "))
-        op = input("Enter operator (+,-,*,/): ")
+        op = input("Enter operator (+,-,*,/,RS, LS): ")
     except ValueError:
         print("Input not a valid number.")
         
@@ -87,15 +90,17 @@ def get_user_input():
 # ------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    (in1, in2, op) = get_user_input()
     
-    try:
-        operation = operators[op]
-    except ValueError:
-        print("Input not a valid operator.")
+    while(1):
+        (in1, in2, op) = get_user_input()
+        
+        if (in1 is None) or (in2 is None):
+            break
+        
+        try:
+            operation = operators[op]
+        except KeyError:
+            print("Operator is not valid.")
+            break
     
-    print(operation(in1, in2))
-    
-    
-    
-    pass
+        print(operation(in1, in2))
